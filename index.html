@@ -9,7 +9,21 @@
 	<link rel="shortcut icon" href="./static/bitbug_favicon.ico" />
   </head>
   <body>
+    <script src="http://code.jquery.com/jquery-2.x-git.min.js"></script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script type="text/javascript">
+      $(function () {
+          $("div.yz ul li").mouseover(function () {
+          if ($(this).siblings().children("canvas").is(":animated")) {
+                  $(this).siblings().children("canvas").stop(true, false).fadeTo("fast", "0.03");
+              } else {
+                  $(this).siblings().children("canvas").fadeTo("fast", "0.03");
+              }
+          }).mouseleave(function () {
+              $(this).siblings().children("canvas").fadeTo("fast", "1");
+          });
+      });
+  </script>
 </html>

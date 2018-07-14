@@ -53,7 +53,7 @@
       <p style="font-weight:bold; font-size:14px">已匹配私钥：<i id="tn" style="margin-right:10px">0</i>已验证次数：{{ vn }}</p>
       <p class="notice"><br/>为了你的私钥安全，推荐在页面加载后，断网操作。（<a href="https://www.jianshu.com/p/49ec5603fc5b" target="_blank" style="text-decoration: none;">使用方法</a>）<br/></p>
 	  <p style="font-size:12px;font-weight:bold;">因着十架爱，程序已开源。愿我们的上帝能帮助你找回！<a href="https://www.jianshu.com/p/67e8160615b5" target="_blank" style="text-decoration: none;color:green"> 程序更新日志</a></p>
-      <p style="font-size:12px;font-weight:bold;">如果还不能解决您的问题的，可以加入 {{ atr }} 获取帮助</p>
+      <p style="font-size:12px;font-weight:bold;">如果还不能解决您的问题的，可以加入{{ atr }} 或联系微信ID：XYstars 获取帮助</p>
     </div>
   </div>
 </template>
@@ -82,8 +82,9 @@ export default {
 		qfAz : '',				//大小写分不清的字符
 		mw_zfs : null,			//Worker 字符搜索
 		mw_zms : null,			//Worker 字母搜索
+		debug : false,
 		qrDetail : [			//支援地址
-			['EOS Account','ha3tsmzsgyge','EosQR'],
+			['EOS Account','eos:ha3tsmzsgyge?contractAddress=EOS%40eosio.token&decimal=0&value=0','EosQR'],
 			['ETH Address','0xE5f0e448938d1300eB05039560F7D51E998AE538','EthQR'],
 			['BTC Address','35tzAjQA19NzZW2kP7bVfNKAWVFxoCJ5Li','BtcQR'],
 			['微信 WeChat','wxp://f2f0epm_REcp9ZXH7_3RlUhqVM4ZPUyh-rLn','WechatQR'],
@@ -125,6 +126,10 @@ export default {
   methods: {
   	//初始化，加载Worker文件。
   	ii : function(){
+  		if(this.debug) {
+  			this.ivpk = "5K1zxV7XaTzeNgu4bViuBPk9u8D7ZDf4J2DJdHuBHBzbSU2SJkC";
+  			this.puk = "EOS5qbJLbPb155166MqYdo1vxzQaPxKB4AEL7LykifPq4fcxdJDpr";
+  		}
 		var zfs_pl = false,zms_pl = false;
 		this.mw_zfs = new Worker('./static/zfs.js');
 		this.mw_zfs.onmessage = function(){
@@ -337,6 +342,7 @@ div.yz ul li
 {
     float:left; /* 向左漂移，将竖排变为横排 */
     width:165px;
+	cursor: pointer;
 }
 
 div.yz ul li canvas {

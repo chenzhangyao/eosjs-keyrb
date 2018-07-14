@@ -17,7 +17,6 @@ var t = (function() {
 		}
 	})();
 var qf = [];	//筛选数组
-var spk = [];	//已验证数组
 var ss = function(pkArr_,searchFrom,searchTo){
 		for (var i = searchFrom; i < searchTo; i++) 
 		{
@@ -40,8 +39,13 @@ var ss = function(pkArr_,searchFrom,searchTo){
 			}
 		}
 	};
+var tn = 0;
 var ck = function(strKey){
-		if (!t.in_arr(spk,strKey) && eosjs_ecc.isValidPrivate(strKey)) 
+		if(++tn % 1421 == 0)
+		{
+			postMessage(tn);
+		}
+		if (eosjs_ecc.isValidPrivate(strKey)) 
 		{
 			postMessage(strKey);
 			spk.push(strKey);
