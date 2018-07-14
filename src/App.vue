@@ -4,7 +4,7 @@
 	<img src="./assets/loading.gif" style="width:240px" v-else-if="ste === 'loading'">
 
 	<div class="res" v-if="ste === 'ready'">
-		<div>请填入 [ 必填项 ] 开始搜索</div>
+		<div>{{ ckr }}</div>
 	</div>
 	<div class="res" v-else-if="ste === 'loading'">
 		<div>正在玩命儿加载中,请稍后...</div>
@@ -20,10 +20,8 @@
 		<div>正在搜索中...请耐心等待...</div>
 	</div>
 
-	<p v-show="ckr != ''" style="color:red">{{ ckr }}</p>
-	
     <div class="yz" style="margin-top: 20px" v-show="ste === 'w'">
-    	<p>如果你想支援我的工作，可以用下列方式来支持我，感激不尽！</p>
+    	<p>程序开发不易！如果可以，请用下列方式来支持我的工作，感激不尽！</p>
     	<ul>
     		<li v-for="q in qrDetail">
 		      <canvas :id="q[2]"></canvas><p>{{ q[0] }}</p>
@@ -52,9 +50,10 @@
         <button v-show="ste !== 'search'" class="primary" @click="sr">查找正确的EOS私钥</button>
         <button v-show="ste === 'search'" class="primary" style="background:darkred" @click="ss">停止搜索</button>
       </div>
-      <p style="font-weight:bold; font-size:14px">已验证次数：{{ vn }}</p>
+      <p style="font-weight:bold; font-size:14px">已匹配私钥：<i id="tn" style="margin-right:10px">0</i>已验证次数：{{ vn }}</p>
       <p class="notice"><br/>为了你的私钥安全，推荐在页面加载后，断网操作。（<a href="https://www.jianshu.com/p/49ec5603fc5b" target="_blank" style="text-decoration: none;">使用方法</a>）<br/></p>
-      <p style="font-size:12px;font-weight:bold;">有问题请联系 {{ atr }} 或者微信ID： XYstars [我会尽快回复]</p>
+	  <p style="font-size:12px;font-weight:bold;">因着十架爱，程序已开源。愿我们的上帝能帮助你找回！<a href="https://www.jianshu.com/p/67e8160615b5" target="_blank" style="text-decoration: none;color:green"> 程序更新日志</a></p>
+      <p style="font-size:12px;font-weight:bold;">如果还不能解决您的问题的，可以加入 {{ atr }} 获取帮助</p>
     </div>
   </div>
 </template>
@@ -69,14 +68,14 @@ export default {
     return {
 		ivpk : "",	//错误私钥
 		vpk : "",	//找回的正确私钥
-		atr : "管理员邮箱 postmaster@echain-key.top",	
+		atr : "QQ群：724652569",	
 		puk : "",	//EOS公钥
 		ste : "loading",	//程序状态
 		srID : null,		//定时器ID
 		vn : 0,				//已验证次数
 		zm : 1,				//搜索字母数
 		sft : '0-0',		//搜索范围
-		ckr : '',			//验证结果
+		ckr : '请填入 [ 必填项 ] 开始搜索',			//验证结果
 		pkmb : [],			//后台返回所有格式正确的私钥
 		myDate : null,		//日期
 		searchType : 'fbqzf',	//搜索类型
@@ -147,27 +146,32 @@ export default {
   	},
   	// 验证 搜索条件的输入 是否正确
 	cd : function(){
-		if(this.ivpk.length != 51){
-			this.ckr = "私钥为51位数 输入不规范。";
+		if(this.ivpk === ''){
+			this.ckr = "你不填EOS私钥怎么帮你找？！";
 			return false;
 		}
-		if(this.sft.split('-').length != 2){
-			this.ckr = "搜索位置 输入不规范。请检查重试。";
+		if(this.ivpk.length != 51){
+			this.ckr = "私钥为51位数 输入不规范";
+			return false;
+		}
+		if(this.ivpk.indexOf('0') != -1 || this.ivpk.indexOf('l') != -1 || this.ivpk.indexOf('I') != -1 || this.ivpk.indexOf('O') != -1)
+		{
+			this.ckr = "私钥中不能包含 0、l、I、O"
 			return false;
 		}
 		if(this.puk === ''){
 			this.ckr = "EOS公钥不能为空！";
 			return false;
 		}
-		if(this.ivpk === ''){
-			this.ckr = "你不填EOS私钥怎么帮你找？！";
+		if(this.sft.split('-').length != 2){
+			this.ckr = "搜索位置 输入不规范";
 			return false;
 		}
 		return true;
 	},
 	//搜索初始化
 	si : function(){
-		this.ckr = '';
+		this.ckr = '请填入 [ 必填项 ] 开始搜索';
 		this.ste = "search";
 		this.pkmb = [];
 		this.vn = 0;
@@ -229,7 +233,12 @@ export default {
 	},
 	//每当Worker发送消息，则push到数组末尾。
 	parr : function(e) {
-		this.pkmb.push(e.data);
+		if(typeof e.data === "string") {
+			this.pkmb.push(e.data);
+		}
+		else if(typeof e.data === "number") {
+			document.getElementById("tn").innerHTML = e.data;
+		}
 	},
 	//最后的搜索结果
 	f : function(e) {
@@ -319,7 +328,7 @@ div.yz p
     position: relative;
     right: -15%;
     padding: 5px;
-    background: black;
+    background: darkslategrey;
     color: aliceblue;
     border-radius: 10px;
 }

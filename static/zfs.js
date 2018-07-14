@@ -16,7 +16,6 @@ var t = (function() {
 			IsUpper : IsUpper
 		}
 	})();
-var spk = [];	//已验证数组
 var ss = function(pkArr_,searchFrom,searchTo,zimu){
 		for (var i = searchFrom; i < searchTo; i++) 
 		{
@@ -56,11 +55,15 @@ var ss = function(pkArr_,searchFrom,searchTo,zimu){
 			}
 		}
 	};
+var tn = 0;
 var ck = function(strKey){
-		if (!t.in_arr(spk,strKey) && eosjs_ecc.isValidPrivate(strKey)) 
+		if(++tn % 1421 == 0)
+		{
+			postMessage(tn);
+		}
+		if (eosjs_ecc.isValidPrivate(strKey)) 
 		{
 			postMessage(strKey);
-			spk.push(strKey);
 		}
 	};
 var uq = function(arr) {
