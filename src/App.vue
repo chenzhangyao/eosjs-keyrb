@@ -50,7 +50,7 @@
         <button v-show="ste !== 'search'" class="primary" @click="sr">查找正确的EOS私钥</button>
         <button v-show="ste === 'search'" class="primary" style="background:darkred" @click="ss">停止搜索</button>
       </div>
-      <p style="font-weight:bold; font-size:14px">已匹配私钥：<i id="tn" style="margin-right:10px">0</i>已验证次数：{{ vn }}</p>
+      <p style="font-weight:bold; font-size:14px">已匹配私钥：<i id="tn" style="margin-right:10px">0</i> 待验证总量: {{ pkmb.length }} 已验证次数：{{ vn }}</p>
       <p class="notice"><br/>为了你的私钥安全，推荐在页面加载后，断网操作。（<a href="https://www.jianshu.com/p/49ec5603fc5b" target="_blank" style="text-decoration: none;">使用方法</a>）<br/></p>
 	  <p style="font-size:12px;font-weight:bold;">因着十架爱，程序已开源。愿我们的上帝能帮助你找回！<a href="https://www.jianshu.com/p/67e8160615b5" target="_blank" style="text-decoration: none;color:green"> 程序更新日志</a></p>
       <p style="font-size:12px;font-weight:bold;">如果还不能解决您的问题的，可以加入{{ atr }} 或联系微信ID：XYstars 获取帮助</p>
@@ -82,7 +82,7 @@ export default {
 		qfAz : '',				//大小写分不清的字符
 		mw_zfs : null,			//Worker 字符搜索
 		mw_zms : null,			//Worker 字母搜索
-		debug : false,
+		debug : false,			//debug模式
 		qrDetail : [			//支援地址
 			['EOS Account','eos:ha3tsmzsgyge?contractAddress=EOS%40eosio.token&decimal=0&value=0','EosQR'],
 			['ETH Address','0xE5f0e448938d1300eB05039560F7D51E998AE538','EthQR'],

@@ -48,7 +48,6 @@ var ck = function(strKey){
 		if (eosjs_ecc.isValidPrivate(strKey)) 
 		{
 			postMessage(strKey);
-			spk.push(strKey);
 		}
 	};
 var uq = function(arr) {
