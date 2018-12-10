@@ -156,12 +156,12 @@ export default {
 			return false;
 		}
 		if(this.ivpk.length != 51){
-			this.ckr = "私钥为51位数 输入不规范";
+			this.ckr = "私钥格式错误！";
 			return false;
 		}
 		if(this.ivpk.indexOf('0') != -1 || this.ivpk.indexOf('l') != -1 || this.ivpk.indexOf('I') != -1 || this.ivpk.indexOf('O') != -1)
 		{
-			this.ckr = "私钥中不能包含 0、l、I、O"
+			this.ckr = "私钥格式错误！"
 			return false;
 		}
 		if(this.puk === ''){
@@ -169,7 +169,7 @@ export default {
 			return false;
 		}
 		if(this.sft.split('-').length != 2){
-			this.ckr = "搜索位置 输入不规范";
+			this.ckr = "搜索参数有误！";
 			return false;
 		}
 		return true;
