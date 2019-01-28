@@ -155,15 +155,6 @@ export default {
 			this.ckr = "你不填EOS私钥怎么帮你找？！";
 			return false;
 		}
-		if(this.ivpk.length != 51){
-			this.ckr = "私钥格式错误！";
-			return false;
-		}
-		if(this.ivpk.indexOf('0') != -1 || this.ivpk.indexOf('l') != -1 || this.ivpk.indexOf('I') != -1 || this.ivpk.indexOf('O') != -1)
-		{
-			this.ckr = "私钥格式错误！"
-			return false;
-		}
 		if(this.puk === ''){
 			this.ckr = "EOS公钥不能为空！";
 			return false;
