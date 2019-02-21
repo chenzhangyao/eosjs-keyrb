@@ -21,7 +21,7 @@
 	</div>
 
     <div class="yz" style="margin-top: 20px" v-show="ste === 'w'">
-    	<p>程序开发不易！如果可以，请用下列方式来支持我的工作，感激不尽！</p>
+    	<p>恭喜！另...程序开发不易！如果有心打赏，感激不尽！</p>
     	<ul>
     		<li v-for="q in qrDetail">
 		      <canvas :id="q[2]"></canvas><p>{{ q[0] }}</p>
@@ -52,7 +52,7 @@
       </div>
       <p style="font-weight:bold; font-size:14px">已匹配私钥：<i id="tn" style="margin-right:10px">0</i> 待验证总量: {{ pkmb.length }} 已验证次数：{{ vn }}</p>
       <p class="notice"><br/>为了你的私钥安全，推荐在页面加载后，断网操作。（<a href="https://www.jianshu.com/p/49ec5603fc5b" target="_blank" style="text-decoration: none;">使用方法</a>）<br/></p>
-	  <p style="font-size:12px;font-weight:bold;">因着十架爱，程序已开源。愿我们的上帝能帮助你找回！<a href="https://www.jianshu.com/p/67e8160615b5" target="_blank" style="text-decoration: none;color:green"> 程序更新日志</a></p>
+	  <p style="font-size:20px;font-weight:bold;">本来想做收费程序，但因着本人信仰基督教，还是决定免费帮助各位！<br/>目前程序已开源，供大家使用。在此，衷心祝愿我们的上帝帮助你成功找回私钥！</p>
       <p style="font-size:12px;font-weight:bold;">如果还不能解决您的问题的，可以加入{{ atr }} 或联系微信ID：XYstars 获取帮助</p>
     </div>
   </div>
@@ -64,34 +64,33 @@ import QRCode from 'qrcode'
 
 export default {
   name: 'App',
-  data () {
-    return {
-		ivpk : "",	//错误私钥
-		vpk : "",	//找回的正确私钥
-		atr : "QQ群：724652569",	
-		puk : "",	//EOS公钥
-		ste : "loading",	//程序状态
-		srID : null,		//定时器ID
-		vn : 0,				//已验证次数
-		zm : 1,				//搜索字母数
-		sft : '0-0',		//搜索范围
-		ckr : '请填入 [ 必填项 ] 开始搜索',			//验证结果
-		pkmb : [],			//后台返回所有格式正确的私钥
-		myDate : null,		//日期
-		searchType : 'fbqzf',	//搜索类型
-		qfAz : '',				//大小写分不清的字符
-		mw_zfs : null,			//Worker 字符搜索
-		mw_zms : null,			//Worker 字母搜索
-		debug : false,			//debug模式
-		qrDetail : [			//支援地址
-			['EOS Account','eos:ha3tsmzsgyge?contractAddress=EOS%40eosio.token&decimal=0&value=0','EosQR'],
-			['ETH Address','0xE5f0e448938d1300eB05039560F7D51E998AE538','EthQR'],
-			['BTC Address','35tzAjQA19NzZW2kP7bVfNKAWVFxoCJ5Li','BtcQR'],
-			['微信 WeChat','wxp://f2f0epm_REcp9ZXH7_3RlUhqVM4ZPUyh-rLn','WechatQR'],
-			['支付宝 Alipay','HTTPS://QR.ALIPAY.COM/FKX03083IVSUUGWBSFHX2D?t=1529249088151','AlipayQR'],
-		]
-    }
-  },
+	data () {
+	    return {
+			ivpk : "",	//错误私钥
+			vpk : "",	//找回的正确私钥
+			atr : "QQ群：724652569",	
+			puk : "",	//EOS公钥
+			ste : "loading",	//程序状态
+			srID : null,		//定时器ID
+			vn : 0,				//已验证次数
+			zm : 1,				//搜索字母数
+			sft : '0-0',		//搜索范围
+			ckr : '请填入 [ 必填项 ] 开始搜索',			//验证结果
+			pkmb : [],			//后台返回所有格式正确的私钥
+			myDate : null,		//日期
+			searchType : 'fbqzf',	//搜索类型
+			qfAz : '',				//大小写分不清的字符
+			mw_zfs : null,			//Worker 字符搜索
+			mw_zms : null,			//Worker 字母搜索
+			debug : false,			//debug模式
+			qrDetail : [			//支援地址
+				['ETH Address','0xE5f0e448938d1300eB05039560F7D51E998AE538','EthQR'],
+				['BTC Address','35tzAjQA19NzZW2kP7bVfNKAWVFxoCJ5Li','BtcQR'],
+				['微信 WeChat','wxp://f2f0epm_REcp9ZXH7_3RlUhqVM4ZPUyh-rLn','WechatQR'],
+				['支付宝 Alipay','HTTPS://QR.ALIPAY.COM/FKX03083IVSUUGWBSFHX2D?t=1529249088151','AlipayQR'],
+			]
+	    }
+  	},
   mounted : function () 
   {
   	  this.ii();
